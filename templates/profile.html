@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <ul class=flashes>
+    {% for message in messages %}
+      <li>{{ message }}</li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
+
+<h1>Profile</h1>
+{% if data[0]._id == session["id"]%}
+	<p>Hi {{data[3].name}}!</p>
+	<p><a href="{{ url_for('edit') }}">Edit</a></p>
+	<p><a href="{{ url_for('logout') }}">Logout</a></p>
+{% else %}
+	<p>{{data[0].name}}</p>
+{% endif %}
+
+Followers: {{data[1]}}<br>
+Following: {{data[2]}}
+<p><a href="{{ url_for('follower_and_following', id1 = data[0]._id)}}">Followers and Following</a></p>
+
+{% if data[0]._id == session["id"]%}
+	<form action = '/post_new' method = "post">
+		<p> New Post: </p>
+		<p><textarea name = "body"></textarea></p>
+		<p><input type = "submit" value = "Submit"></p>
+	</form>
+	<p>Posts</p>
+	{% for p in posts %}
+		<a href = "{{url_for('profile', id1 = p)}}">{{users[p.creator-1].name}}</a><br>
+		<p>{{p.text}}</p>
+		<br>
+	{% endfor %}
+
+	<br><br>
+{% else %}
+	{% if not data[4] %}
+		<form action = '/followers' method = "post">
+			<p><input name = "id" type = "hidden" value = "{{data[0]._id}}"></textarea></p>
+			<p><input type = "submit" value = "Follow"></p>
+		</form>
+	{% else %}
+		<button type="button" disabled>Following</button>
+	{% endif %}
+
+{% endif %}
+<p>{{ data[0].name }}'s Posts</p>
+	{% for p in self_p %}
+		<p>{{p.text}}</p>
+		<br>
+	{% endfor %}
+</body>
+</html>

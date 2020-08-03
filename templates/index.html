@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<body>
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <ul class=flashes>
+    {% for message in messages %}
+      <li>{{ message }}</li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
+<h1>Home Page</h1>
+
+<h2>Login</h2>
+
+<form action = '#' method = "post">
+	<p> Email: </p>
+	<p><input type = "text" name = "email"></p>
+	<p><input type = "submit" value = "Submit"></p>
+</form>
+
+<p><a href="{{ url_for('signup') }}">Sign Up</a></p>
+
+</body>
+</html>

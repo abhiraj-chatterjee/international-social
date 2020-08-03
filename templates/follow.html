@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<h2>Followers</h2>
+{% for p in content[0] %}
+	<a href = "{{url_for('profile', id1 = p._id)}}">{{p.name}}</a><br>
+{% endfor %}
+
+<h2>Following</h2>
+{% for p in content[1] %}
+	<a href = "{{url_for('profile', id1 = p._id)}}">{{p.name}}</a><br>
+{% endfor %}
+</body>
+</html>
